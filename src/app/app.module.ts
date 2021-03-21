@@ -11,7 +11,7 @@ import { CategoriaService } from '../services/domain/categoria.service';
 
 @NgModule({
   declarations: [
-    MyApp,
+    MyApp
   ],
   imports: [
     BrowserModule,
