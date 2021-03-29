@@ -1,6 +1,5 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { t } from "@angular/core/src/render3";
 import { AlertController } from "ionic-angular";
 import { Observable } from "rxjs/Rx";
 import { StorageService } from "../services/storage.service";
