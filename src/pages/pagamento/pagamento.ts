@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PedidoDTO } from '../../models/pedido.dto';
 
@@ -22,8 +22,6 @@ export class PagamentoPage {
      public formBuilder: FormBuilder) {
 
       this.pedido = this.navParams.get('pedido');
-
-      console.log(this.pedido);
 
       this.formGroup = this.formBuilder.group({
         numeroDeParcelas: [1, Validators.required],
