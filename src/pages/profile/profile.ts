@@ -28,6 +28,10 @@ export class ProfilePage {
   }
 
   ionViewDidLoad() {
+    this.carregarDados();
+  }
+
+  carregarDados() {
     let localUser = this.storage.getLocalUser();
     if (localUser && localUser.email) {
       this.clienteService.findByEmail(localUser.email)
@@ -35,7 +39,7 @@ export class ProfilePage {
           this.cliente = response as ClienteDTO;
           this.getImageIfExists();
         },
-          error => { 
+          error => {
             if (error.status == 403) {
               this.navCtrl.setRoot('HomePage');
             }
@@ -46,12 +50,12 @@ export class ProfilePage {
     }
   }
 
-  getImageIfExists(){
+  getImageIfExists() {
     this.clienteService.getImageFromBucket(this.cliente.id)
-    .subscribe(response => {
-      this.cliente.imageUrl = `${API_CONFIG.bucketBaseUrl}/cp${this.cliente.id}.jpg`;
-    },
-    error => {});
+      .subscribe(response => {
+        this.cliente.imageUrl = `${API_CONFIG.bucketBaseUrl}/cp${this.cliente.id}.jpg`;
+      },
+        error => { });
   }
 
   getCameraPicture() {
@@ -66,10 +70,24 @@ export class ProfilePage {
     }
 
     this.camera.getPicture(options).then((imageData) => {
-     this.picture = 'data:image/png;base64,' + imageData;
-     this.cameraOn = false;
+      this.picture = 'data:image/png;base64,' + imageData;
+      this.cameraOn = false;
     }, (err) => {
     });
   }
 
+  sendPicture(){
+    this.clienteService.uploadPicture(this.picture)
+    .subscribe(response => {
+      this.picture = null;
+      this.carregarDados();
+    },
+    error => {
+
+    });
+  }
+
+  cancel() {
+    this.picture = null;
+  }
 }
